@@ -3,10 +3,10 @@ from tkinter import ttk
 from PIL import Image, ImageTk
 from ui import UI
 
-
 if __name__ == '__main__':
     root = Tk()
     root.title("Приложение на Tkinter")
+    root.resizable(False, False)
 
     ui = UI()
     geometry_s = ui.get_root_geometry()
