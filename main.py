@@ -13,8 +13,18 @@ if __name__ == '__main__':
     geometry_s = ui.get_root_geometry()
     root.geometry(geometry_s)
 
-    ui.create_image("imgs/bg.png", 0.5, 0.5)
-    basa = ui.create_image("imgs/basa.png", 0.5, 0.5)
-    ui.create_image_on("imgs/x.png", basa, 0, 0)
+    ui.create_image("imgs/bg.png", 640, 360)
+
+    """
+    for y in range(0, 180*3, 180):
+        for x in range(0, 180 * 3, 180):
+            ui.create_image("imgs/cell.png", 505 - 37.5 + x, 220 + y)
+    """
+
+    ui.create_image("imgs/person_choice.png", 467.5, 220)
+    ui.create_image("imgs/cell.png", 467.5 + 180, 220)
+    ui.create_image("imgs/computer_choice.png", 467.5 + 180*2, 220)
+    ui.create_image("imgs/play.png", 467.5 + 180, 220 + 180)
+    ui.create_image("imgs/exit.png", 467.5 + 180, 220 + 180*2)
 
     root.mainloop()

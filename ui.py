@@ -7,7 +7,8 @@ class UI:
     """
     Имеет общие параметры для всего пользовательского интерфейса.
     Имеет функции для создания UI-элементов
-    ВАЖНО: Позиционирование и размеры осуществляется через ux, uy(unit x, unit y), они являются единичными
+    ВАЖНО: Позиционирование осуществляется через ux, uy(unit x, unit y), а размеры
+    через usx, usy(unit size x, unit size y), они являются единичными
     велечинами(0 <= n <= 1), которая внутри здешних функции домножается на geometry_x или geometry_y,
     т.о. мы располагаем элементы относительно размера пользовательского окна
     """
@@ -17,6 +18,13 @@ class UI:
     geometry_y : int = 720
     """Размеры пользовательского окна по y"""
 
+    size_kx = 1
+    size_ky = 1
+
+    def __init__(self):
+        self.size_kx = self.geometry_x / 1280
+        self.size_ky = self.geometry_y / 720
+
     def get_root_geometry(self) -> str:
         """
         :return: root.geometry в виде "300x250" и подобных
@@ -24,13 +32,14 @@ class UI:
         s = f"{self.geometry_x}x{self.geometry_y}"
         return s
 
-    def create_image(self, path, ux=0, uy=0):
+    def create_image(self, path, x=0, y=0):
         image = Image.open(path)
+        image = image.resize((int(image.width * self.size_kx), int(image.height * self.size_ky)))
         photo_image = ImageTk.PhotoImage(image)
         label = Label(image=photo_image)
         label.image = photo_image
-        xpos = ux*self.geometry_x - (image.width/2)
-        ypos = uy*self.geometry_y - (image.height/2)
+        xpos = x*self.size_kx - (image.width/2)
+        ypos = y*self.size_ky - (image.height/2)
         label.place(x=xpos, y=ypos)
         obj = Obj({'x': xpos, 'y': ypos}, image)
         return obj
