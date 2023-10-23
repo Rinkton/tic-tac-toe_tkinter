@@ -32,15 +32,38 @@ class UI:
         s = f"{self.geometry_x}x{self.geometry_y}"
         return s
 
-    def create_image(self, path, x=0, y=0):
+    def __get_photo_image_and_image(self, path):
         image = Image.open(path)
         image = image.resize((int(image.width * self.size_kx), int(image.height * self.size_ky)))
         photo_image = ImageTk.PhotoImage(image)
+        return photo_image, image
+
+    def __place_elem(self, elem, image, x, y):
+        xpos = x * self.size_kx - (image.width / 2)
+        ypos = y * self.size_ky - (image.height / 2)
+        elem.place(x=xpos, y=ypos)
+        return xpos, ypos
+
+    def __null_func(self):
+        """
+        Эдакая реализация паттерна NullObject
+        :return:
+        """
+        pass
+
+    def create_image(self, path, x=0, y=0):
+        photo_image, image = self.__get_photo_image_and_image(path)
         label = Label(image=photo_image)
         label.image = photo_image
-        xpos = x*self.size_kx - (image.width/2)
-        ypos = y*self.size_ky - (image.height/2)
-        label.place(x=xpos, y=ypos)
+        xpos, ypos = self.__place_elem(label, image, x, y)
+        obj = Obj({'x': xpos, 'y': ypos}, image)
+        return obj
+
+    def create_button(self, path, x=0, y=0, func=__null_func):
+        photo_image, image = self.__get_photo_image_and_image(path)
+        button = Button(image=photo_image, command=func)
+        button.image = photo_image
+        xpos, ypos = self.__place_elem(button, image, x, y)
         obj = Obj({'x': xpos, 'y': ypos}, image)
         return obj
 

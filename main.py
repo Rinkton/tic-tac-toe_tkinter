@@ -21,10 +21,10 @@ if __name__ == '__main__':
             ui.create_image("imgs/cell.png", 505 - 37.5 + x, 220 + y)
     """
 
-    ui.create_image("imgs/person_choice.png", 467.5, 220)
+    ui.create_button("imgs/person_choice.png", 467.5, 220)
     ui.create_image("imgs/cell.png", 467.5 + 180, 220)
-    ui.create_image("imgs/computer_choice.png", 467.5 + 180*2, 220)
-    ui.create_image("imgs/play.png", 467.5 + 180, 220 + 180)
-    ui.create_image("imgs/exit.png", 467.5 + 180, 220 + 180*2)
+    ui.create_button("imgs/computer_choice.png", 467.5 + 180*2, 220)
+    ui.create_button("imgs/play.png", 467.5 + 180, 220 + 180)
+    ui.create_button("imgs/exit.png", 467.5 + 180, 220 + 180*2)
 
     root.mainloop()
