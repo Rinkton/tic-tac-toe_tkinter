@@ -1,7 +1,12 @@
 from tkinter import *
-from tkinter import ttk
-from PIL import Image, ImageTk
 from ui import UI
+from game import Game
+
+
+def play():
+    global root
+    game = Game()
+    game.main(root)
 
 if __name__ == '__main__':
     # Мб каждую клетку отдельно и 3 спрайта с пустым, иксом и ноликом
@@ -28,7 +33,7 @@ if __name__ == '__main__':
     but = ui.create_button("imgs/person_choice.png", 467.5, 220)
     pic = ui.create_image("imgs/vs.png", 467.5 + 180, 220)
     ui.create_button("imgs/computer_choice.png", 467.5 + 180*2, 220)
-    ui.create_button("imgs/play.png", 467.5 + 180, 220 + 180)
+    ui.create_button("imgs/play.png", 467.5 + 180, 220 + 180, play)
     ui.create_button("imgs/exit.png", 467.5 + 180, 220 + 180*2, quit)
 
     root.mainloop()

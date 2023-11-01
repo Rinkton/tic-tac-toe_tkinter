@@ -21,9 +21,12 @@ class UI:
     size_kx = 1
     size_ky = 1
 
-    def __init__(self):
+    frame = None
+
+    def __init__(self, frame=None):
         self.size_kx = self.geometry_x / 1280
         self.size_ky = self.geometry_y / 720
+        self.frame = frame
 
     def get_root_geometry(self) -> str:
         """
@@ -66,7 +69,11 @@ class UI:
 
     def create_image(self, path, x=0, y=0):
         photo_image, image = self.__get_photo_image_and_image(path)
-        label = Label(image=photo_image)
+        label = None
+        if self.frame:
+            label = Label(self.frame, image=photo_image)
+        else:
+            label = Label(image=photo_image)
         label.image = photo_image
         xpos, ypos = self.__place_elem(label, image, x, y)
         obj = Obj(label, {'x': xpos, 'y': ypos}, image)
@@ -75,10 +82,10 @@ class UI:
     def create_button(self, path, x=0, y=0, func=__null_func, obj_self=None):
         photo_image, image = self.__get_photo_image_and_image(path)
         button = None
-        if func.__code__.co_argcount == 0:
-            button = Button(image=photo_image, command=func)
+        if self.frame:
+            button = button = Button(self.frame, image=photo_image, command=func)
         else:
-            button = Button(image=photo_image, command=lambda: func(obj_self)) # None замени на self самой функции
+            button = Button(image=photo_image, command=func)
         button.image = photo_image
         xpos, ypos = self.__place_elem(button, image, x, y)
         obj = Obj(button, {'x': xpos, 'y': ypos}, image)
