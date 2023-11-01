@@ -79,13 +79,19 @@ class UI:
         obj = Obj(label, {'x': xpos, 'y': ypos}, image, path)
         return obj
 
-    def create_button(self, path, x=0, y=0, func=__null_func, obj_self=None):
+    def create_button(self, path, x=0, y=0, func=__null_func, *args):
         photo_image, image = self.__get_photo_image_and_image(path)
         button = None
         if self.frame:
-            button = button = Button(self.frame, image=photo_image, command=func)
+            if len(args) != 0:
+                button = Button(self.frame, image=photo_image, command=lambda: func(*args))
+            else:
+                button = Button(self.frame, image=photo_image, command=lambda: func())
         else:
-            button = Button(image=photo_image, command=func)
+            if len(args) != 0:
+                button = Button(image=photo_image, command=lambda: func(*args))
+            else:
+                button = Button(image=photo_image, command=lambda: func())
         button.image = photo_image
         xpos, ypos = self.__place_elem(button, image, x, y)
         obj = Obj(button, {'x': xpos, 'y': ypos}, image, path, func)
