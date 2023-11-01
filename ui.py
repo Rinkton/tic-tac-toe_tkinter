@@ -76,7 +76,7 @@ class UI:
             label = Label(image=photo_image)
         label.image = photo_image
         xpos, ypos = self.__place_elem(label, image, x, y)
-        obj = Obj(label, {'x': xpos, 'y': ypos}, image)
+        obj = Obj(label, {'x': xpos, 'y': ypos}, image, path)
         return obj
 
     def create_button(self, path, x=0, y=0, func=__null_func, obj_self=None):
@@ -88,20 +88,21 @@ class UI:
             button = Button(image=photo_image, command=func)
         button.image = photo_image
         xpos, ypos = self.__place_elem(button, image, x, y)
-        obj = Obj(button, {'x': xpos, 'y': ypos}, image)
+        obj = Obj(button, {'x': xpos, 'y': ypos}, image, path, func)
         return obj
 
     def change_image(self, obj, path):
         photo_image, image = self.__get_photo_image_and_image(path)
         obj.elem.destroy()
         newobj = self.create_image(path, obj.pos['x'] + (image.width / 2), obj.pos['y'] + (image.width / 2))
-        obj = newobj
+        return newobj
 
     def change_button(self, obj, path):
         photo_image, image = self.__get_photo_image_and_image(path)
         obj.elem.destroy()
-        newobj = self.create_button(path, obj.pos['x'] + (image.width / 2), obj.pos['y'] + (image.width / 2))
-        obj = newobj
+        newobj = self.create_button(
+            path, obj.pos['x'] + (image.width / 2), obj.pos['y'] + (image.width / 2), obj.command)
+        return newobj
 
     def create_image_on(self, path, obj, ux=0, uy=0):
         """
