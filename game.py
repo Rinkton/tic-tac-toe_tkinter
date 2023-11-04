@@ -29,6 +29,10 @@ class Game:
         obj, x, y = self.field.find_obj_by_widget(event.widget)
         obj = self.ui.change_button(obj, "imgs/x-to-put.png")
         self.field.cells[y][x] = obj
+        for row in self.field.cells:
+            for cell in row:
+                if cell != self.field.cells[y][x]:
+                    cell.elem.event_generate("<Leave>")
         obj.elem.bind('<Leave>', self.on_cell_button_leave)
 
     def on_cell_button_leave(self, event):
