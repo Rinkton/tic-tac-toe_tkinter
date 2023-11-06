@@ -94,7 +94,7 @@ class UI:
                 button = Button(image=photo_image, command=lambda: func())
         button.image = photo_image
         xpos, ypos = self.__place_elem(button, image, x, y)
-        obj = Obj(button, {'x': xpos, 'y': ypos}, image, path, func)
+        obj = Obj(button, {'x': xpos, 'y': ypos}, image, path, func, *args)
         return obj
 
     def change_image(self, obj, path):
@@ -107,7 +107,7 @@ class UI:
         photo_image, image = self.__get_photo_image_and_image(path)
         obj.elem.destroy()
         newobj = self.create_button(
-            path, obj.pos['x'] + (image.width / 2), obj.pos['y'] + (image.width / 2), obj.command)
+            path, obj.pos['x'] + (image.width / 2), obj.pos['y'] + (image.width / 2), obj.command, *obj.args)
         return newobj
 
     def create_image_on(self, path, obj, ux=0, uy=0):
